@@ -1,34 +1,75 @@
-# E-Bidding Migas
+# React + TypeScript + Vite
 
-## 1. Deskripsi Produk
-**E-Bidding Migas** adalah platform *Business-to-Business* (B2B) berbasis web yang dirancang khusus untuk industri Minyak dan Gas Bumi (Migas). Aplikasi ini memfasilitasi pelaksanaan sesi bidding atau tender untuk pengadaan logistik, alat berat, dan penyewaan wilayah kerja blok migas secara terintegrasi, transparan, dan aman. Fokus utama platform ini adalah menjaga integritas proses tender sekaligus menjamin kerahasiaan penawaran dari masing-masing peserta kompetitor selama sesi bidding berlangsung, mencegah terjadinya kebocoran informasi yang dapat merugikan pihak-pihak yang terlibat.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 2. Tabel Kebutuhan Kriptografi
-Berikut adalah identifikasi kebutuhan kriptografi untuk mengamankan data sensitif dalam platform:
+Currently, two official plugins are available:
 
-| Nama Data | Tujuan Keamanan | Prioritas | Alasan/Justifikasi |
-| :--- | :--- | :--- | :--- |
-| **Nilai Penawaran (Bid Amount)** | Kerahasiaan (Confidentiality) & Integritas (Integrity) | Tinggi | Nilai penawaran adalah inti dari proses bidding. Harus dirahasiakan dari kompetitor lain selama masa tender berlangsung (Confidentiality) dan dipastikan tidak diubah oleh pihak yang tidak berwenang setelah diajukan (Integrity). |
-| **Kredensial Pengguna (Password)** | Kerahasiaan (Confidentiality) | Tinggi | Password digunakan untuk autentikasi peserta dan administrator. Kebocoran password dapat memberikan akses tidak sah ke akun peserta bidding, sehingga sangat kritis untuk dilindungi (umumnya dengan *hashing* yang ditambahkan *salt*). |
-| **Dokumen Kontrak Pemenang** | Integritas (Integrity) & Nirpenyangkalan (Non-repudiation) | Sedang | Dokumen kontrak yang disetujui harus dijamin keasliannya dan tidak dapat diubah tanpa jejak (Integrity). Pihak pemenang dan penyelenggara juga tidak boleh menyangkal persetujuan yang telah dibuat (Non-repudiation, misalnya dengan Tanda Tangan Digital). |
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## 3. Rancangan Komponen Awal
+## React Compiler
 
-### a. Alur Komponen (Masukan - Proses - Keluaran)
-- **Masukan (Input):** Pengguna (Peserta Bidding) memasukkan data penawaran (contoh: ID Barang/Blok, Nilai Bid, ID Perusahaan) melalui antarmuka web.
-- **Proses:** 
-    1. Sistem (Backend) menerima data.
-    2. Sistem memvalidasi input.
-    3. Sistem mengenkripsi *Nilai Bid* menggunakan algoritma enkripsi yang kuat (misal: AES-256-GCM) sebelum disimpan ke basis data.
-- **Keluaran (Output):** Pesan konfirmasi keberhasilan pengajuan penawaran kepada pengguna. Data tersimpan di basis data dalam format terenkripsi (Ciphertext).
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-### b. Representasi Data
-Pertukaran data antara klien (Frontend) dan server (Backend) menggunakan format **JSON (JavaScript Object Notation)** melalui protokol aman (HTTPS). 
-Contoh payload JSON saat submit penawaran:
-```json
-{
-  "tender_id": "TNDR-2026-10-001",
-  "company_id": "CMP-9982",
-  "encrypted_bid_amount": "U2FsdGVkX19+...", 
-  "iv": "a1b2c3d4..." 
-}
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
+```
+
+You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
+```

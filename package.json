@@ -1,27 +1,34 @@
 {
-  "name": "e-bid_ong",
-  "version": "1.0.0",
-  "description": "**E-Bidding Migas** adalah platform *Business-to-Business* (B2B) berbasis web yang dirancang khusus untuk industri Minyak dan Gas Bumi (Migas). Aplikasi ini memfasilitasi pelaksanaan sesi bidding atau tender untuk pengadaan logistik, alat berat, dan penyewaan wilayah kerja blok migas secara terintegrasi, transparan, dan aman. Fokus utama platform ini adalah menjaga integritas proses tender sekaligus menjamin kerahasiaan penawaran dari masing-masing peserta kompetitor selama sesi bidding berlangsung, mencegah terjadinya kebocoran informasi yang dapat merugikan pihak-pihak yang terlibat.",
-  "main": "index.js",
+  "name": "e-bid-ong",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yookiftw/E-BID_ONG.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Yookiftw/E-BID_ONG/issues"
-  },
-  "homepage": "https://github.com/Yookiftw/E-BID_ONG#readme",
   "dependencies": {
-    "dotenv": "^18.0.7"
+    "lucide-react": "^1.56.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "jest": "^30.5.2"
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.6.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.69.0",
+    "vite": "^8.3.0"
   }
 }

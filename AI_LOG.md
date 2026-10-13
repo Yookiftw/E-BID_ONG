@@ -1,12 +1,35 @@
----
+# E-Bidding Migas
 
-### File: `AI_LOG.md`
+Platform *Business-to-Business* (B2B) berbasis web untuk memfasilitasi sesi bidding/tender logistik, alat berat, dan wilayah kerja (WK) blok minyak dan gas bumi secara terintegrasi, transparan, dan aman.
 
-```markdown
-# AI_LOG.md
+## 1. Konsep Produk & Fitur Utama
+* **Masalah yang Diselesaikan:** Mencegah kebocoran nilai penawaran antar kompetitor selama sesi bidding berlangsung, serta menyediakan platform tender terpusat.
+* **Target Pengguna:** Perusahaan Kontraktor Kontrak Kerja Sama (KKKS), Penyedia Jasa Logistik & Alat Berat Migas.
+* **Fitur Utama:**
+  * Dashboard katalog tender aktif berdasarkan kategori.
+  * Formulir pengajuan penawaran terenkripsi dengan validasi *client-side*.
+  * Halaman riwayat penawaran terdaftar.
 
-Log ini mencatat penggunaan kecerdasan buatan (AI) generatif dalam penyusunan tugas, sesuai dengan ketentuan penggunaan AI pada rubrik penilaian K5[cite: 1].
+## 2. Tabel Kebutuhan Kriptografi
 
-| Tanggal | Alat yang Digunakan | Tujuan | Ringkasan Perintah (Prompt) | Bagian yang Dipakai/Diubah | Cara Memeriksanya Kembali |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 13 Okt 2026 | Gemini | Membantu menyusun draf awal file `README.md` dan `AI_LOG.md` untuk Tugas 1 Kriptografi. | Meminta Gemini bertindak sebagai Software Architect/Security Expert untuk membuat struktur `README.md` proyek "E-Bidding Migas" yang mencakup Deskripsi Produk, Tabel Kebutuhan Kriptografi (min. 3 data), Rancangan Komponen (Masukan-Proses-Keluaran, Representasi Data, CSPRNG, Library), 4 Skenario Uji (3 positif, 1 negatif), Panduan Keamanan Repositori, dan draf `AI_LOG.md` sesuai rubrik tugas. | Seluruh struktur awal `README.md` dan draf format tabel `AI_LOG.md` ini dihasilkan oleh Gemini. | Saya membaca ulang (review) seluruh konten yang dihasilkan untuk memastikan kesesuaiannya dengan ide proyek "E-Bidding Migas", memverifikasi bahwa komponen kriptografi yang disarankan sudah menggunakan standar modern (bukan klasik), mengecek kesesuaian 4 skenario uji dengan syarat tugas, dan memastikan format log AI ini sesuai dengan instruksi dosen. |
+| Nama Data | Tujuan Keamanan | Prioritas | Alasan/Justifikasi |
+| :--- | :--- | :--- | :--- |
+| **Nilai Penawaran (Bid Amount)** | Kerahasiaan & Integritas | Tinggi | Harus dirahasiakan dari kompetitor selama masa tender berlangsung dan dipastikan tidak diubah tanpa izin. |
+| **Kredensial Pengguna (Password)** | Kerahasiaan | Tinggi | Melindungi akses akun peserta bidding dari pencurian kredensial. |
+| **Dokumen Kontrak Pemenang** | Integritas & Nirpenyangkalan | Sedang | Menjamin keaslian dokumen kesepakatan akhir agar tidak dapat dimanipulasi. |
+
+## 3. Komponen Antarmuka Web (React + TS + Tailwind)
+* **3 Halaman Utama:** `DashboardPage`, `TenderDetailPage`, `HistoryPage`.
+* **5 Komponen Reusable:** `Button`, `InputField` (dengan *error state*), `Navbar`, `Footer`, `TenderCard`.
+* **Validasi Client-Side:** Memastikan nama perusahaan terisi dan nilai bid merupakan angka positif yang melebihi batas minimum penawaran.
+
+## 4. Teknologi & Keamanan
+* **Frontend:** React, TypeScript, Tailwind CSS, Lucide Icons.
+* **Kriptografi & Backend utils:** Node.js `crypto` (AES-256-GCM, PBKDF2), `randomBytes` (CSPRNG).
+* **Testing:** Jest untuk unit test kriptografi, Lighthouse untuk aksesibilitas web.
+
+## 5. Cara Menjalankan Proyek
+1. Clone repositori ini.
+2. Install dependensi:
+   ```bash
+   npm install --legacy-peer-deps
