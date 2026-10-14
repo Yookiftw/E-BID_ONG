@@ -33,3 +33,6 @@ Platform *Business-to-Business* (B2B) berbasis web untuk memfasilitasi sesi bidd
 2. Install dependensi:
    ```bash
    npm install --legacy-peer-deps
+
+
+| 14 Okt 2026 | Gemini | Membantu menyusun laporan Threat Modeling STRIDE dan Risk Register. | menyusun dan mengerjakan tugas Cyber Security: Pemodelan Ancaman dan Analisis Risiko | File asset-inventory.md, dfd.md, threat-model.md, dan risk-register.md. | Membaca ulang 10 ancaman dan 5 risiko prioritas untuk memastikan alasannya relevan dengan konteks B2B tender migas (bukan nilai generik). |
